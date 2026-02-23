@@ -1,7 +1,7 @@
 const Footer = () => {
     return(
         <div className="footer">
-            <div>footer component</div>
+            <div>Nathanael Juan Gracedo - Footer</div>
         </div>
     );
 };

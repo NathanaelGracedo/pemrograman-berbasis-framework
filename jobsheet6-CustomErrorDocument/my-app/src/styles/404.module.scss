@@ -5,8 +5,25 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
+    padding: 20px;
 
-    &_image {
-    width: 300px;   
+    &__image {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin-bottom: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: #666;
     }
 }

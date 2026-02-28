@@ -10,7 +10,7 @@
 
     &__image {
         width: 100%;
-        max-width: 400px;
+        max-width: 200px;
         height: auto;
         margin-bottom: 2rem;
     }
@@ -25,5 +25,16 @@
     p {
         font-size: 1.1rem;
         color: #666;
+        margin-bottom: 2rem;
+    }
+
+    &__button {
+        display: inline-block;
+        padding: 10px 24px;
+        background-color: #0070f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
     }
 }

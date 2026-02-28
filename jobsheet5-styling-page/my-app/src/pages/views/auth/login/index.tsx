@@ -11,7 +11,7 @@ const HalamanLogin = () => {
         console.log("Processing login...");
         
         // Navigasi imperatif ke halaman Product
-        push('/produk');
+        push('../produk');
     };
 
     return(

@@ -7,6 +7,7 @@ type ProductType =
     name: string;
     price: number;
     size: string;
+    category: string;
 }
 
 const kategori = () => {
@@ -28,6 +29,7 @@ const kategori = () => {
             {products.map((product: ProductType) => (
                 <div key={product.id}>
                     <h2>{product.name}</h2>
+                    <p>Kategori: {product.category}</p>
                     <p>Harga: {product.price}</p>
                     <p>Ukuran: {product.size}</p>
                 </div>

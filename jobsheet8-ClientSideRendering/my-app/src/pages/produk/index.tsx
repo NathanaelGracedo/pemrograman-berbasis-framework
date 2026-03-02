@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import styles from "./product.module.scss";
 import HeroSection from "../views/produk/HeroSection";
+import useSWR from "swr";
+import fetcher from "../utils/swr/fetcher";
 
 type ProductType = 
 {
@@ -14,30 +14,13 @@ type ProductType =
 }
 
 const kategori = () => {
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const fetchProducts = () => {
-        setIsLoading(true);
-        fetch('/api/produk')
-        .then((response) => response.json())
-        .then((responsedata) => {
-            setProducts(responsedata.data);
-            setIsLoading(false);
-        })
-        .catch((error) => {
-            console.error("Error fetching data: ", error);
-            setIsLoading(false);
-        });
-    };
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+    const { data, error, isLoading, mutate } = useSWR("/api/produk", fetcher);
 
     const handleRefresh = () => {
-        fetchProducts();
+        mutate();
     };
+
+    const products = data?.data || [];
 
     return (
         <div>

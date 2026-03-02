@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "./product.module.scss";
+import HeroSection from "../views/produk/HeroSection";
 
 type ProductType = 
 {
@@ -40,6 +41,7 @@ const kategori = () => {
 
     return (
         <div>
+            <HeroSection />
             <div className={styles.produk}>
                 <h1 className={styles.produk_title}>Daftar Produk</h1>
                 <button className="border-2 border-black p-2 rounded mb-4" onClick={handleRefresh}>

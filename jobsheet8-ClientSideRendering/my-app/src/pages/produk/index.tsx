@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styles from "../views/produk/produk.module.scss";
+import styles from "./product.module.scss";
 
 type ProductType = 
 {
@@ -14,15 +14,19 @@ type ProductType =
 
 const kategori = () => {
     const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchProducts = () => {
+        setIsLoading(true);
         fetch('/api/produk')
         .then((response) => response.json())
         .then((responsedata) => {
             setProducts(responsedata.data);
+            setIsLoading(false);
         })
         .catch((error) => {
             console.error("Error fetching data: ", error);
+            setIsLoading(false);
         });
     };
 
@@ -36,32 +40,49 @@ const kategori = () => {
 
     return (
         <div>
-            <div className={styles.hero}>
-                <h1>Daftar Produk</h1>
-                <p>Temukan produk pilihan Anda</p>
-            </div>
-            <div className={styles.mainSection}>
-                <div className={styles.container}>
-                    <button className="border-2 border-black p-2 rounded mb-4" onClick={handleRefresh}>
-                        Refresh Data
-                    </button>
-                    <div className={styles.productGrid}>
-                        {products.map((product: ProductType) => (
-                            <div key={product.id} className={styles.productCard}>
-                                <img 
-                                    src={product.image} 
-                                    alt={product.name} 
-                                    className="w-full h-48 object-cover rounded mb-2" 
-                                />
-                                <h3>{product.name}</h3>
-                                <p>Kategori: {product.category}</p>
-                                <p className={styles.price}>
-                                    Rp {product.price.toLocaleString('id-ID')}
-                                </p>
-                                <p>Ukuran: {product.size}</p>
-                            </div>
-                        ))}
-                    </div>
+            <div className={styles.produk}>
+                <h1 className={styles.produk_title}>Daftar Produk</h1>
+                <button className="border-2 border-black p-2 rounded mb-4" onClick={handleRefresh}>
+                    Refresh Data
+                </button>
+                <div className={styles.produk_content}>
+                    {isLoading ? (
+                        <>
+                            {[1, 2, 3, 4].map((item) => (
+                                <div key={item} className={styles.produk_content_skeleton}>
+                                    <div className={styles.produk_content_skeleton_image}></div>
+                                    <div className={styles.produk_content_skeleton_name}></div>
+                                    <div className={styles.produk_content_skeleton_category}></div>
+                                    <div className={styles.produk_content_skeleton_price}></div>
+                                    <div className={styles.produk_content_skeleton_size}></div>
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            {products.map((product: ProductType) => (
+                                <div key={product.id} className={styles.produk_content_item}>
+                                    <img 
+                                        src={product.image} 
+                                        alt={product.name} 
+                                        className={styles.produk_content_item_image}
+                                    />
+                                    <h4 className={styles.produk_content_item_name}>
+                                        {product.name}
+                                    </h4>
+                                    <p className={styles.produk_content_item_category}>
+                                        Kategori: {product.category}
+                                    </p>
+                                    <p className={styles.produk_content_item_price}>
+                                        Rp {product.price.toLocaleString('id-ID')}
+                                    </p>
+                                    <p className={styles.produk_content_item_size}>
+                                        Ukuran: {product.size}
+                                    </p>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
         </div>

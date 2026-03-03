@@ -1,14 +1,6 @@
 import styles from "./product.module.scss";
 import HeroSection from "../views/produk/HeroSection";
-
-type ProductType = {
-    id: string;
-    image: string;
-    name: string;
-    price: number;
-    size: string;
-    category: string;
-}
+import { ProductType } from "../types/Product.type";
 
 const halamanProdukServer = (props:{products: ProductType[]}) => {
     const { products } = props;

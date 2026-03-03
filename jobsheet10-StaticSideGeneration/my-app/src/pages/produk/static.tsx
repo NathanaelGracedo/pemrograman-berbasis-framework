@@ -1,6 +1,6 @@
-import { ProductType } from "../types/Product.type";
-import HeroSection from "../views/produk/HeroSection";
-import TampilanProduk from "../views/produk";
+import { ProductType } from "../../types/Product.type";
+import HeroSection from "../../views/produk/HeroSection";
+import TampilanProduk from "../../views/produk";
 
 const halamanProdukStatic = (props:{products: ProductType[]}) => {
     const { products } = props;

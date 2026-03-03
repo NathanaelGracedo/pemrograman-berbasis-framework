@@ -1,16 +1,21 @@
-import styles from "./product.module.scss";
-import HeroSection from "../../views/produk/HeroSection";
+import HeroSection from "./HeroSection";
+import styles from "../../pages/produk/product.module.scss";
 import { ProductType } from "../../types/Product.type";
 
-const halamanProdukServer = (props:{products: ProductType[]}) => {
-    const { products } = props;
-    return(
+const TampilanProduk = ({ 
+    products, 
+    isLoading = false 
+}: { 
+    products: ProductType[]; 
+    isLoading?: boolean;
+}) => {
+    return (
         <div>
             <HeroSection />
             <div className={styles.produk}>
-                <h1 className={styles.produk_title}>Daftar Produk (Server-Side Rendering)</h1>
+                <h1 className={styles.produk_title}>Daftar Produk</h1>
                 <div className={styles.produk_content}>
-                    {products.length === 0 ? (
+                    {isLoading ? (
                         <>
                             {[1, 2, 3, 4].map((item) => (
                                 <div key={item} className={styles.produk_content_skeleton}>
@@ -52,14 +57,5 @@ const halamanProdukServer = (props:{products: ProductType[]}) => {
         </div>
     );
 };
-export default halamanProdukServer;
 
-export async function getServerSideProps() {
-    const res = await fetch("http://localhost:3000/api/produk");
-    const response = await res.json();
-    return {
-        props: {
-            products: response.data,
-        },
-    };
-}
+export default TampilanProduk;

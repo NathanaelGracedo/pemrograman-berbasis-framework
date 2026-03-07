@@ -1,6 +1,7 @@
 import styles from "./product.module.scss";
 import HeroSection from "../../views/produk/HeroSection";
 import { ProductType } from "../../types/Product.type";
+import Link from "next/link";
 
 const halamanProdukServer = (props:{products: ProductType[]}) => {
     const { products } = props;
@@ -25,7 +26,7 @@ const halamanProdukServer = (props:{products: ProductType[]}) => {
                     ) : (
                         <>
                             {products.map((product: ProductType) => (
-                                <div key={product.id} className={styles.produk_content_item}>
+                                <Link href={`/produk/${product.id}`} key={product.id} className={styles.produk_content_item}>
                                     <img 
                                         src={product.image} 
                                         alt={product.name} 
@@ -43,7 +44,7 @@ const halamanProdukServer = (props:{products: ProductType[]}) => {
                                     <p className={styles.produk_content_item_size}>
                                         Ukuran: {product.size}
                                     </p>
-                                </div>
+                                </Link>
                             ))}
                         </>
                     )}

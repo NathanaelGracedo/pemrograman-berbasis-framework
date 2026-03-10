@@ -13,7 +13,7 @@ export default async function handler(
         return res.status(401).json({
             revalidated: false,
             message: "Insert correct token"
-        })
+        });
     }
     if (req.query.data === "produk") {
         try {

@@ -20,6 +20,7 @@ export async function getStaticProps() {
     return {
         props: {
             products: response.data,
-        }
+        },
+        revalidate: 10, // ISR: regenerasi halaman setiap 10 detik
     };
 }

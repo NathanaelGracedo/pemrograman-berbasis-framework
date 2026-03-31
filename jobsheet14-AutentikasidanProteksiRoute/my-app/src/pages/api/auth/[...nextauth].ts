@@ -24,23 +24,26 @@ export const authOptions: NextAuthOptions = {
 
         if (user) {
           return user;
-        } else {
-          return null;
         }
+
+        return null;
       },
     }),
   ],
-
   callbacks: {
     async jwt({ token, account, user }: any) {
       if (account?.provider === "credentials" && user) {
         token.email = user.email;
+        token.fullname = user.fullname;
       }
       return token;
     },
     async session({ session, token }: any) {
       if (token.email) {
         session.user.email = token.email;
+      }
+      if (token.fullname) {
+        session.user.fullname = token.fullname;
       }
       return session;
     },

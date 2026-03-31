@@ -1,13 +1,26 @@
-import { NextResponse } from "next/server";
-import type { NextRequest, NextFetchEvent } from "next/server";
-import withAuth from "./middleware/withAuth";
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-function middleware(request: NextRequest, event: NextFetchEvent) {
+export async function middleware(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
+
+  // Protected routes
+  const protectedRoutes = ["/profile"];
+
+  if (protectedRoutes.includes(pathname)) {
+    const token = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (!token) {
+      return NextResponse.redirect(new URL("/auth/login", req.url));
+    }
+  }
+
   return NextResponse.next();
 }
 
-export default withAuth(middleware, ["/profile", "/produk", "/about"]);
-
 export const config = {
-  matcher: ["/profile", "/produk", "/about"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

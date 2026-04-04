@@ -1,12 +1,45 @@
 import Link from "next/link";
 import style from "./register.module.css";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const TampilanRegister = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const { push } = useRouter();
+    const [error, setError] = useState("");
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        setError("");
+        const form = event.currentTarget;
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get("email") as string;
+        const fullname = formData.get("Fullname") as string;
+        const password = formData.get("Password") as string;
+        const response = await fetch("/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",      
+            },
+            body: JSON.stringify({ email, fullname, password}),
+        }); 
+        if (response.status === 200) {
+            form.reset();
+            setIsLoading(false);
+            push("/auth/login");
+        } else {
+            setIsLoading(false);
+            setError(
+                response.status === 400 ? "User already exists" : "An error occurred"
+            );
+        }
+    };
     return(
         <div className={style.register}>
             <h1 className={style.register__title}>Halaman Register</h1>
             <div className={style.register__form}>
-                <form action="">
+                <form onSubmit={handleSubmit}>
+                    {error && <div style={{ color: "red", marginBottom: "20px" }}>{error}</div>}
                     <div className={style.register__form__item}>
                         <label 
                         htmlFor="email"
@@ -54,8 +87,8 @@ const TampilanRegister = () => {
                         className={style.register__form__item__input} 
                         />
                     </div>
-                    <button type="submit" className={style.register__form__item__button}>
-                        Register
+                    <button type="submit" disabled={isLoading} className={style.register__form__item__button}>
+                        {isLoading ? "Loading..." : "Register"}
                     </button>
                 </form>
                 <br />

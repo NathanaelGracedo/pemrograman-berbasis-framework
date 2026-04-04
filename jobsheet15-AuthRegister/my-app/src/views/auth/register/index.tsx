@@ -9,13 +9,26 @@ const TampilanRegister = () => {
     const [error, setError] = useState("");
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setIsLoading(true);
         setError("");
         const form = event.currentTarget;
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email") as string;
         const fullname = formData.get("Fullname") as string;
         const password = formData.get("Password") as string;
+
+        // Validasi email
+        if (!email || email.trim() === "") {
+            setError("Email is required");
+            return;
+        }
+
+        // Validasi password minimal 6 karakter
+        if (!password || password.length < 6) {
+            setError("Password must be at least 6 characters");
+            return;
+        }
+
+        setIsLoading(true);
         const response = await fetch("/api/register", {
             method: "POST",
             headers: {
@@ -52,6 +65,7 @@ const TampilanRegister = () => {
                         id="email"
                         name="email"
                         placeholder="Email"
+                        required
                         className={style.register__form__item__input} 
                         />
                     </div>
@@ -84,6 +98,8 @@ const TampilanRegister = () => {
                         id="Password"
                         name="Password"
                         placeholder="Password"
+                        required
+                        minLength={6}
                         className={style.register__form__item__input} 
                         />
                     </div>

@@ -2,7 +2,9 @@ import TampilanRegister from "../../views/auth/register";
 
 const HalamanRegister = () => {
     return(
-        <TampilanRegister></TampilanRegister>
+        <div>
+            <TampilanRegister />
+        </div>
     );
 };
 

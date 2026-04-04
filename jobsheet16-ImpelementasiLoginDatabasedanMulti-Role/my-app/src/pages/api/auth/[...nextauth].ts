@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn } from "next-auth/react";
+import { signIn } from "@/utils/db/servicefirebase";
 import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
       name: "credentials",
       credentials: {
         // fullname: { label: "Full Name", type: "text" },
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: "email", type: "email" },
+        password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
@@ -42,6 +42,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "credentials" && user) {
         token.email = user.email;
         token.fullname = user.fullname;
+        token.role = user.role;
       }
       //console.log("jwt callback", { token, account, profile, user });
       return token;
@@ -52,6 +53,9 @@ export const authOptions: NextAuthOptions = {
       }
       if (token.fullname) {
         session.user.fullname = token.fullname;
+      }
+      if (token.role) {
+        session.user.role = token.role;
       }
       //console.log("session callback", { session, token });
       return session;

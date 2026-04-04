@@ -19,7 +19,7 @@ const TampilanLogin = () => {
             const res = await signIn("credentials", {
                 redirect: false,
                 email: event.target.email.value,
-                password: event.target.Password.value,
+                password: event.target.password.value,
                 callbackUrl,
             });
 
@@ -36,6 +36,7 @@ const TampilanLogin = () => {
         }
     };
     return(
+    <>
         <div className={style.login}>
             {error && <p className={style.login__error}>{error}</p>}
             <h1 className={style.login__title}>Halaman login</h1>
@@ -85,6 +86,7 @@ const TampilanLogin = () => {
                 </p>
             </div>
         </div>
+    </>
     );
 };
 

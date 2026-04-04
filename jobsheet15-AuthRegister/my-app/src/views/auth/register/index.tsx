@@ -1,5 +1,5 @@
 import Link from "next/link";
-import style from "./register.module.css";
+import style from "./register.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -30,16 +30,16 @@ const TampilanRegister = () => {
         } else {
             setIsLoading(false);
             setError(
-                response.status === 400 ? "User already exists" : "An error occurred"
+                response.status === 400 ? "Email already exists" : "An error occurred"
             );
         }
     };
     return(
         <div className={style.register}>
+            {error && <p className={style.register__error}>{error}</p>}
             <h1 className={style.register__title}>Halaman Register</h1>
             <div className={style.register__form}>
                 <form onSubmit={handleSubmit}>
-                    {error && <div style={{ color: "red", marginBottom: "20px" }}>{error}</div>}
                     <div className={style.register__form__item}>
                         <label 
                         htmlFor="email"

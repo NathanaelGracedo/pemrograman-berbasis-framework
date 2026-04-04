@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import app from "./firebase";
+import bcrypt from "bcrypt";
 
 const db = getFirestore(app);
 
@@ -33,6 +34,7 @@ export async function signUp(
     email: string;
     fullname: string;
     password: string;
+    role?: string;
   },
   callback: Function
 ) {
@@ -55,21 +57,20 @@ export async function signUp(
     });
   } else {
     // User belum ada, tambahkan ke database
-    try {
-      await addDoc(collection(db, "users"), {
-        email: userData.email,
-        fullname: userData.fullname,
-        password: userData.password,
-      });
-      callback({
-          status: "success",
-          message: "User registered successfully",
-      });
-    } catch (error) {
-      callback({
-          status: "error",
-          message: "Failed to register user",
-      });
-    }
+    userData.password = await bcrypt.hash(userData.password, 10);   
+    userData.role = "user"; 
+    await addDoc(collection(db, "users"), userData)
+        .then(() => {
+            callback({
+                status: "success",
+                message: "User registered successfully",
+            });
+        })
+        .catch((error) => {
+            callback({
+                status: "error",
+                message: error.message, 
+            });
+        });
   }
 }

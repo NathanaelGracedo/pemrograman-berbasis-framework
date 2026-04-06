@@ -16,7 +16,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         </AppShell>
       </SessionProvider>
       
-      {/* Google Analytics */}
+      {/* Google Analytics */}Ad
       {GA_ID && (
         <>
           <Script

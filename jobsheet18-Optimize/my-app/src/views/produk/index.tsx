@@ -1,7 +1,7 @@
 import HeroSection from "./HeroSection";
 import styles from "../../pages/produk/product.module.scss";
 import { ProductType } from "../../types/Product.type";
-import { link } from "node:fs";
+import Image from "next/image";
 import Link from "next/link";
 
 const TampilanProduk = ({ 
@@ -33,11 +33,7 @@ const TampilanProduk = ({
                         <>
                             {products.map((product: ProductType) => (
                                 <Link href={`/produk/${product.id}`} key={product.id} className={styles.produk_content_item}>
-                                    <img 
-                                        src={product.image} 
-                                        alt={product.name} 
-                                        className={styles.produk_content_item_image}
-                                    />
+                                    <Image src={product.image} alt={product.name} width={300} height={200}></Image>
                                     <h4 className={styles.produk_content_item_name}>
                                         {product.name}
                                     </h4>

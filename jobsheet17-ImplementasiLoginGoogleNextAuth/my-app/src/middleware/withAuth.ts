@@ -26,8 +26,8 @@ export default function withAuth(
       }
       if (token.role !=="editor" && hanyaEditor.includes(pathname)) {
         return NextResponse.redirect(new URL("/", req.url));
+      }
     }
-  }
     return middleware(req, next);
   };
 }

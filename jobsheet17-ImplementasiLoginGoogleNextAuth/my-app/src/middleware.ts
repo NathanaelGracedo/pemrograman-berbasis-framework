@@ -10,4 +10,4 @@ export function Middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-export default withAuth(Middleware, ["/profile", "/admin"]);
+export default withAuth(Middleware, ["/profile", "/admin", "/editor"]);

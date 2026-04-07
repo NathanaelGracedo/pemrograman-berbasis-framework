@@ -18,7 +18,7 @@ const TampilanProduk = ({
                     {isLoading ? (
                         <>
                             {[1, 2, 3, 4].map((item) => (
-                                <div key={item} className={styles.produk_content_skeleton}>
+                                <div key={item} data-testid="skeleton" className={styles.produk_content_skeleton}>
                                     <div className={styles.produk_content_skeleton_image}></div>
                                     <div className={styles.produk_content_skeleton_name}></div>
                                     <div className={styles.produk_content_skeleton_category}></div>

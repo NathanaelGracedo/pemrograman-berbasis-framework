@@ -1,4 +1,3 @@
-import HeroSection from "./HeroSection";
 import styles from "../../pages/produk/product.module.scss";
 import { ProductType } from "../../types/Product.type";
 import Image from "next/image";
@@ -13,9 +12,8 @@ const TampilanProduk = ({
 }) => {
     return (
         <div>
-            <HeroSection />
             <div className={styles.produk}>
-                <h1 className={styles.produk_title}>Daftar Produk</h1>
+                <h1 data-testid="title" className={styles.produk_title}>Product Page</h1>
                 <div className={styles.produk_content}>
                     {isLoading ? (
                         <>
